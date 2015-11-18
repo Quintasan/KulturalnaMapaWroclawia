@@ -26,9 +26,10 @@ import retrofit.Retrofit;
 public class POIFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     private OnFragmentInteractionListener mListener;
-    private AbsListView _poiListView;
     private ArrayAdapter<POI> _poiArrayAdapter;
     private API.APIInterface _api;
+
+    private AbsListView _poiListView;
 
     public POIFragment() {
     }

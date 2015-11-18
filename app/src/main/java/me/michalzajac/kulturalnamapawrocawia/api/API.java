@@ -12,6 +12,7 @@ import java.util.List;
 
 import me.michalzajac.kulturalnamapawrocawia.models.Event;
 import me.michalzajac.kulturalnamapawrocawia.models.POI;
+import me.michalzajac.kulturalnamapawrocawia.models.Route;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -52,7 +53,7 @@ public class API {
 
     public interface APIInterface {
 
-        // POI
+        // POIs
         @GET("/pois")
         Call<List<POI>> getAllPOIs();
 
@@ -67,11 +68,11 @@ public class API {
         Call<Event> getEvent(@Path("poi_id") Integer poi_id, @Path("event_id") Integer event_id);
 
         // Routes
-        //@GET("/routes")
-        //Call<List<Route>> getAllRoutes();
-        //
-        //@GET("/routes/{route_id}")
-        //Call<Route> getRoute(@Path("route_id") Integer route_id);
+        @GET("/routes")
+        Call<List<Route>> getAllRoutes();
+
+        @GET("/routes/{route_id}")
+        Call<Route> getRoute(@Path("route_id") Integer route_id);
     }
 
 }

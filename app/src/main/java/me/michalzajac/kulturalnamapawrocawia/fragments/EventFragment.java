@@ -1,8 +1,8 @@
 package me.michalzajac.kulturalnamapawrocawia.fragments;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,91 +12,72 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import me.michalzajac.kulturalnamapawrocawia.R;
-import me.michalzajac.kulturalnamapawrocawia.fragments.dummy.DummyContent;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Large screen devices (such as tablets) are supported by replacing the ListView
- * with a GridView.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
- */
+import me.michalzajac.kulturalnamapawrocawia.R;
+import me.michalzajac.kulturalnamapawrocawia.api.API;
+import me.michalzajac.kulturalnamapawrocawia.fragments.dummy.DummyContent;
+import me.michalzajac.kulturalnamapawrocawia.models.Event;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
+
+
 public class EventFragment extends Fragment implements AbsListView.OnItemClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
+    private ArrayAdapter<Event> _eventArrayAdapter;
+    private AbsListView _eventListView;
+    private API.APIInterface _api;
 
-    /**
-     * The fragment's ListView/GridView.
-     */
-    private AbsListView mListView;
-
-    /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
-     */
-    private ListAdapter mAdapter;
-
-    // TODO: Rename and change types of parameters
-    public static EventFragment newInstance(String param1, String param2) {
-        EventFragment fragment = new EventFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public EventFragment() {
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public EventFragment() {
+    public static EventFragment newInstance() {
+        EventFragment fragment = new EventFragment();
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-        // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        _api = API.getClient();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
-
-        // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
-        // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
-
         return view;
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        _eventArrayAdapter = new ArrayAdapter<Event>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, new ArrayList<Event>());
+        _eventListView = (AbsListView) view.findViewById(android.R.id.list);
+        ((AdapterView<ListAdapter>)_eventListView).setAdapter(_eventArrayAdapter);
+        Call<List<Event>> query = _api.getAllEvents();
+        query.enqueue(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Response<List<Event>> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    _eventArrayAdapter.addAll(response.body());
+                    _eventArrayAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 //        try {
 //            mListener = (OnFragmentInteractionListener) activity;
 //        } catch (ClassCastException e) {
@@ -126,7 +107,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
      * to supply the text it should use.
      */
     public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
+        View emptyView = _eventListView.getEmptyView();
 
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);

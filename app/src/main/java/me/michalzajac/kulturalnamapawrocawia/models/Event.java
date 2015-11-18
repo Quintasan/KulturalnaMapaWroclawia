@@ -40,10 +40,6 @@ public class Event implements Parcelable {
     @Expose
     public String updatedAt;
 
-    public String toString() {
-        return name;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -51,6 +47,43 @@ public class Event implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeValue(this.id);
+        dest.writeString(this.name);
+        dest.writeLong(description != null ? description.getTime() : -1);
+        dest.writeLong(starts != null ? starts.getTime() : -1);
+        dest.writeString(this.ends);
+        dest.writeValue(this.price);
+        dest.writeValue(this._public);
+        dest.writeValue(this.poiId);
+        dest.writeString(this.createdAt);
+        dest.writeString(this.updatedAt);
     }
+
+    public Event() {
+    }
+
+    protected Event(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.name = in.readString();
+        long tmpDescription = in.readLong();
+        this.description = tmpDescription == -1 ? null : new Date(tmpDescription);
+        long tmpStarts = in.readLong();
+        this.starts = tmpStarts == -1 ? null : new Date(tmpStarts);
+        this.ends = in.readString();
+        this.price = (Integer) in.readValue(Integer.class.getClassLoader());
+        this._public = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.poiId = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.createdAt = in.readString();
+        this.updatedAt = in.readString();
+    }
+
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
+        public Event createFromParcel(Parcel source) {
+            return new Event(source);
+        }
+
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 }
