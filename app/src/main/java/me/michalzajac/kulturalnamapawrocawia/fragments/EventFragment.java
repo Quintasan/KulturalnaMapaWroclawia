@@ -3,13 +3,13 @@ package me.michalzajac.kulturalnamapawrocawia.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,6 +26,8 @@ import retrofit.Retrofit;
 
 
 public class EventFragment extends Fragment implements AbsListView.OnItemClickListener {
+
+    private final static String TAG = EventFragment.class.getSimpleName();
 
     private OnFragmentInteractionListener mListener;
     private ArrayAdapter<Event> _eventArrayAdapter;
@@ -57,7 +59,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
     public void onViewCreated(View view, Bundle savedInstanceState) {
         _eventArrayAdapter = new ArrayAdapter<Event>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, new ArrayList<Event>());
         _eventListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>)_eventListView).setAdapter(_eventArrayAdapter);
+        _eventListView.setAdapter(_eventArrayAdapter);
         Call<List<Event>> query = _api.getAllEvents();
         query.enqueue(new Callback<List<Event>>() {
             @Override
@@ -70,7 +72,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
 
             @Override
             public void onFailure(Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }

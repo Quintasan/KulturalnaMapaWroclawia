@@ -25,11 +25,12 @@ import retrofit.Retrofit;
 
 public class POIFragment extends Fragment implements AbsListView.OnItemClickListener {
 
+    private final static String TAG = POIFragment.class.getSimpleName();
+
     private OnFragmentInteractionListener mListener;
     private ArrayAdapter<POI> _poiArrayAdapter;
-    private API.APIInterface _api;
-
     private AbsListView _poiListView;
+    private API.APIInterface _api;
 
     public POIFragment() {
     }

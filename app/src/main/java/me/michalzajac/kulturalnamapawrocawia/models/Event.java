@@ -17,13 +17,13 @@ public class Event implements Parcelable {
     public String name;
     @SerializedName("description")
     @Expose
-    public Date description;
+    public String description;
     @SerializedName("starts")
     @Expose
     public Date starts;
     @SerializedName("ends")
     @Expose
-    public String ends;
+    public Date ends;
     @SerializedName("price")
     @Expose
     public Integer price;
@@ -35,10 +35,15 @@ public class Event implements Parcelable {
     public Integer poiId;
     @SerializedName("created_at")
     @Expose
-    public String createdAt;
+    public Date createdAt;
     @SerializedName("updated_at")
     @Expose
-    public String updatedAt;
+    public Date updatedAt;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 
     @Override
     public int describeContents() {
@@ -49,14 +54,14 @@ public class Event implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.id);
         dest.writeString(this.name);
-        dest.writeLong(description != null ? description.getTime() : -1);
+        dest.writeString(this.description);
         dest.writeLong(starts != null ? starts.getTime() : -1);
-        dest.writeString(this.ends);
+        dest.writeLong(ends != null ? ends.getTime() : -1);
         dest.writeValue(this.price);
         dest.writeValue(this._public);
         dest.writeValue(this.poiId);
-        dest.writeString(this.createdAt);
-        dest.writeString(this.updatedAt);
+        dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
+        dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
     }
 
     public Event() {
@@ -65,16 +70,18 @@ public class Event implements Parcelable {
     protected Event(Parcel in) {
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.name = in.readString();
-        long tmpDescription = in.readLong();
-        this.description = tmpDescription == -1 ? null : new Date(tmpDescription);
+        this.description = in.readString();
         long tmpStarts = in.readLong();
         this.starts = tmpStarts == -1 ? null : new Date(tmpStarts);
-        this.ends = in.readString();
+        long tmpEnds = in.readLong();
+        this.ends = tmpEnds == -1 ? null : new Date(tmpEnds);
         this.price = (Integer) in.readValue(Integer.class.getClassLoader());
         this._public = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.poiId = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.createdAt = in.readString();
-        this.updatedAt = in.readString();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
