@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kulturalna Mapa Wrocławia</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="nav_events">Wydarzenia</string>
+    <string name="nav_places">Miejsca</string>
+    <string name="nav_settings">Ustawienia</string>
+    <string name="nav_trails">Ścieżki</string>
+    <string name="navigation_drawer_close">Zamknij menu nawigacyjne</string>
+    <string name="navigation_drawer_open">Otwórz menu nawigacyjne</string>
+</resources>

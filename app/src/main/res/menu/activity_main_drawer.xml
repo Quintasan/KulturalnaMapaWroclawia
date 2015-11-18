@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/top_menu" android:checkableBehavior="single">
+        <item android:id="@+id/nav_places" android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="@string/nav_places" />
+        <item android:id="@+id/nav_events" android:icon="@android:drawable/ic_menu_agenda"
+            android:title="@string/nav_events" />
+        <item android:id="@+id/nav_trails" android:icon="@android:drawable/ic_menu_mapmode"
+            android:title="@string/nav_trails" />
+    </group>
+
+    <group android:id="@+id/lower_menu" android:checkableBehavior="none">
+        <item android:id="@+id/nav_settings" android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/nav_settings" />
+    </group>
+
+</menu>
