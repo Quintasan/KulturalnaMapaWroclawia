@@ -73,6 +73,7 @@ public class RouteFragment extends Fragment implements AbsListView.OnItemClickLi
                 t.printStackTrace();
             }
         });
+        _routeListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -97,7 +98,8 @@ public class RouteFragment extends Fragment implements AbsListView.OnItemClickLi
         if (_routeFragmentListener != null) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            _routeFragmentListener.onTrailSelected(TAG);
+            Route selectedRoute = (Route) parent.getSelectedItem();
+            _routeFragmentListener.onTrailSelected(selectedRoute);
         }
     }
 
@@ -110,7 +112,7 @@ public class RouteFragment extends Fragment implements AbsListView.OnItemClickLi
     }
 
     public interface OnFragmentInteractionListener {
-        public void onTrailSelected(String id);
+        public void onTrailSelected(Route selectedRoute);
     }
 
 }

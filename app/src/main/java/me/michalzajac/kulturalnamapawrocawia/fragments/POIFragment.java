@@ -95,11 +95,9 @@ public class POIFragment extends Fragment implements AbsListView.OnItemClickList
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "onItemClick() invoked");
         if (_poiFragmentListener != null) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            _poiFragmentListener.onPOISelected(TAG);
+            POI selectedPOI = (POI) parent.getSelectedItem();
+            _poiFragmentListener.onPOISelected(selectedPOI);
         }
     }
 
@@ -127,7 +125,7 @@ public class POIFragment extends Fragment implements AbsListView.OnItemClickList
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void onPOISelected(String id);
+        public void onPOISelected(POI selectedPOI);
     }
 
 }

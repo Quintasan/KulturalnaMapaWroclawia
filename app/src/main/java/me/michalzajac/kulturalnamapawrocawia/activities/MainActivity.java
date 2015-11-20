@@ -20,6 +20,8 @@ import me.michalzajac.kulturalnamapawrocawia.fragments.EventFragment;
 import me.michalzajac.kulturalnamapawrocawia.fragments.POIFragment;
 import me.michalzajac.kulturalnamapawrocawia.fragments.RouteFragment;
 import me.michalzajac.kulturalnamapawrocawia.models.Event;
+import me.michalzajac.kulturalnamapawrocawia.models.POI;
+import me.michalzajac.kulturalnamapawrocawia.models.Route;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -113,17 +115,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onEventSelected(Event event) {
-        Log.d(TAG, event.toString());
+    public void onEventSelected(Event selectedEvent) {
+        Log.d(TAG, selectedEvent.toString());
     }
 
     @Override
-    public void onPOISelected(String id) {
-        Log.d(TAG, id);
+    public void onPOISelected(POI selectedPOI) {
+        Log.d(TAG, selectedPOI.toString());
     }
 
     @Override
-    public void onTrailSelected(String id) {
-        Log.d(TAG, id);
+    public void onTrailSelected(Route selectedRoute) {
+        Log.d(TAG, selectedRoute.toString());
     }
 }

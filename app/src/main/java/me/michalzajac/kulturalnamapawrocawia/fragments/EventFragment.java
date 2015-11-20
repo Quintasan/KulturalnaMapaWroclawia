@@ -75,6 +75,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
                 t.printStackTrace();
             }
         });
+        _eventListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -128,7 +129,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void onEventSelected(Event event);
+        public void onEventSelected(Event selectedEvent);
     }
 
 }
