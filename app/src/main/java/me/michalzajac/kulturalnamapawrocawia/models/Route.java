@@ -28,6 +28,11 @@ public class Route implements Parcelable {
     public Date updatedAt;
 
     @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

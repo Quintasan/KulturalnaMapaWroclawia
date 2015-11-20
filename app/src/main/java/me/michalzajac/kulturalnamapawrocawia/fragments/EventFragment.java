@@ -1,8 +1,9 @@
 package me.michalzajac.kulturalnamapawrocawia.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import java.util.List;
 
 import me.michalzajac.kulturalnamapawrocawia.R;
 import me.michalzajac.kulturalnamapawrocawia.api.API;
-import me.michalzajac.kulturalnamapawrocawia.fragments.dummy.DummyContent;
 import me.michalzajac.kulturalnamapawrocawia.models.Event;
 import retrofit.Call;
 import retrofit.Callback;
@@ -29,7 +29,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
 
     private final static String TAG = EventFragment.class.getSimpleName();
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener _eventFragmentListener;
     private ArrayAdapter<Event> _eventArrayAdapter;
     private AbsListView _eventListView;
     private API.APIInterface _api;
@@ -80,26 +80,27 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+        try {
+            _eventFragmentListener = (OnFragmentInteractionListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        _eventFragmentListener = null;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
+        if (_eventFragmentListener != null) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            Event selectedEvent = (Event) parent.getSelectedItem();
+            _eventFragmentListener.onEventSelected(selectedEvent);
         }
     }
 
@@ -127,8 +128,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onEventSelected(Event event);
     }
 
 }

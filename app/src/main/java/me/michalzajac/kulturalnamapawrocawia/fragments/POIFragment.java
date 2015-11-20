@@ -1,8 +1,9 @@
 package me.michalzajac.kulturalnamapawrocawia.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import java.util.List;
 
 import me.michalzajac.kulturalnamapawrocawia.R;
 import me.michalzajac.kulturalnamapawrocawia.api.API;
-import me.michalzajac.kulturalnamapawrocawia.fragments.dummy.DummyContent;
 import me.michalzajac.kulturalnamapawrocawia.models.POI;
 import retrofit.Call;
 import retrofit.Callback;
@@ -27,7 +27,7 @@ public class POIFragment extends Fragment implements AbsListView.OnItemClickList
 
     private final static String TAG = POIFragment.class.getSimpleName();
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener _poiFragmentListener;
     private ArrayAdapter<POI> _poiArrayAdapter;
     private AbsListView _poiListView;
     private API.APIInterface _api;
@@ -70,34 +70,36 @@ public class POIFragment extends Fragment implements AbsListView.OnItemClickList
 
             @Override
             public void onFailure(Throwable t) {
-
+                t.printStackTrace();
             }
         });
+        _poiListView.setOnItemClickListener(this);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+        try {
+            _poiFragmentListener = (OnFragmentInteractionListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        _poiFragmentListener = null;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
+        Log.d(TAG, "onItemClick() invoked");
+        if (_poiFragmentListener != null) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            _poiFragmentListener.onPOISelected(TAG);
         }
     }
 
@@ -125,8 +127,7 @@ public class POIFragment extends Fragment implements AbsListView.OnItemClickList
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onPOISelected(String id);
     }
 
 }
