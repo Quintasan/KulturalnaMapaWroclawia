@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Cultural Map of Wroclaw</string>
+    <string name="wroclaw">Wroclaw</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -23,4 +24,7 @@
     <string name="activity_route_details_description">Description</string>
     <string name="activity_route_details_points">Points</string>
     <string name="activity_route_details_information">Information</string>
+    <string name="fragment_wroclaw_description_header">Description</string>
+    <string name="fragment_wroclaw_description">Insert description here</string>
+    <string name="nav_about">About Wroclaw</string>
 </resources>

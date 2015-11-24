@@ -19,4 +19,11 @@
     <string name="activity_poi_details_opening_hours">Godziny otwarcia</string>
     <string name="activity_event_details_ends">Koniec</string>
     <string name="activity_event_details_starts">Początek</string>
+    <string name="activity_route_details_description">Opis</string>
+    <string name="activity_route_details_information">Informacje</string>
+    <string name="activity_route_details_points">Miejsca</string>
+    <string name="fragment_wroclaw_description">Wstaw opis tutaj</string>
+    <string name="fragment_wroclaw_description_header">Krótko o Wrocławiu</string>
+    <string name="wroclaw">Wrocław</string>
+    <string name="nav_about">O Wrocławiu</string>
 </resources>

@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new POIFragment()).commit();
+        if (savedInstanceState == null)
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new POIFragment()).commit();
     }
 
     @Override
@@ -90,6 +91,11 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
 
+        if(item.getItemId() == R.id.nav_about) {
+            Intent intent = new Intent(this, WroclawActivity.class);
+            startActivity(intent);
+        }
+
         switch (item.getItemId()) {
             case R.id.nav_places:
                 fragment = new POIFragment();
@@ -117,7 +123,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onPOISelected(POI selectedPOI) {
-        Log.d(TAG, selectedPOI.toString());
         Intent intent = new Intent(this, POIDetailsActvity.class);
         intent.putExtra("selectedPOI", (Parcelable) selectedPOI);
         startActivity(intent);
@@ -125,7 +130,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onEventSelected(Event selectedEvent) {
-        Log.d(TAG, selectedEvent.toString());
         Intent intent = new Intent(this, EventDetailsActvity.class);
         intent.putExtra("selectedEvent", (Parcelable) selectedEvent);
         startActivity(intent);
@@ -133,7 +137,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onTrailSelected(Route selectedRoute) {
-        Log.d(TAG, selectedRoute.toString());
         Intent intent = new Intent(this, RouteDetailsActvity.class);
         intent.putExtra("selectedRoute", (Parcelable) selectedRoute);
         startActivity(intent);

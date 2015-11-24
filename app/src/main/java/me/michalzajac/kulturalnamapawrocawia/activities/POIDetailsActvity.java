@@ -41,7 +41,7 @@ public class POIDetailsActvity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + selectedPOI.latitude + "," + selectedPOI.longitude + "(" + selectedPOI.name + ")");
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + selectedPOI.latitude + "," + selectedPOI.longitude);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {

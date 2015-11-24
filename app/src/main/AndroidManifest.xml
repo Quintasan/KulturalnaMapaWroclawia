@@ -26,6 +26,14 @@
         </activity>
         <activity android:name=".activities.MapsActivity" />
         <activity
+            android:name=".activities.WroclawActivity"
+            android:label="@string/wroclaw"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.michalzajac.kulturalnamapawrocawia.activities.MainActivity" />
+        </activity>
+        <activity
             android:name=".activities.POIDetailsActvity"
             android:label="@string/title_activity_poi_details"
             android:parentActivityName=".activities.MainActivity">
