@@ -98,7 +98,7 @@ public class RouteFragment extends Fragment implements AbsListView.OnItemClickLi
         if (_routeFragmentListener != null) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            Route selectedRoute = (Route) parent.getSelectedItem();
+            Route selectedRoute = (Route) parent.getItemAtPosition(position);
             _routeFragmentListener.onTrailSelected(selectedRoute);
         }
     }

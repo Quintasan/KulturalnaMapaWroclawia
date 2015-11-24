@@ -2,6 +2,7 @@ package me.michalzajac.kulturalnamapawrocawia.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -115,17 +116,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onEventSelected(Event selectedEvent) {
-        Log.d(TAG, selectedEvent.toString());
+    public void onPOISelected(POI selectedPOI) {
+        Log.d(TAG, selectedPOI.toString());
+        Intent intent = new Intent(this, POIDetailsActvity.class);
+        intent.putExtra("selectedPOI", (Parcelable) selectedPOI);
+        startActivity(intent);
     }
 
     @Override
-    public void onPOISelected(POI selectedPOI) {
-        Log.d(TAG, selectedPOI.toString());
+    public void onEventSelected(Event selectedEvent) {
+        Log.d(TAG, selectedEvent.toString());
+        Intent intent = new Intent(this, EventDetailsActvity.class);
+        intent.putExtra("selectedEvent", (Parcelable) selectedEvent);
+        startActivity(intent);
     }
 
     @Override
     public void onTrailSelected(Route selectedRoute) {
         Log.d(TAG, selectedRoute.toString());
+        Intent intent = new Intent(this, RouteDetailsActvity.class);
+        intent.putExtra("selectedRoute", (Parcelable) selectedRoute);
+        startActivity(intent);
     }
 }

@@ -100,7 +100,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
         if (_eventFragmentListener != null) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            Event selectedEvent = (Event) parent.getSelectedItem();
+            Event selectedEvent = (Event) parent.getItemAtPosition(position);
             _eventFragmentListener.onEventSelected(selectedEvent);
         }
     }

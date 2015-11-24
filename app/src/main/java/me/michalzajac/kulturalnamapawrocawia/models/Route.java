@@ -7,9 +7,11 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Route implements Parcelable {
+public class Route implements Parcelable, Serializable {
 
     @SerializedName("id")
     @Expose
@@ -20,12 +22,27 @@ public class Route implements Parcelable {
     @SerializedName("description")
     @Expose
     public String description;
+    @SerializedName("route_image")
+    @Expose
+    public String routeImage;
+    @SerializedName("pois")
+    @Expose
+    public ArrayList<POI> pois;
     @SerializedName("created_at")
     @Expose
     public Date createdAt;
     @SerializedName("updated_at")
     @Expose
     public Date updatedAt;
+
+    public String googleMapsUrl() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("https://www.google.com/maps/dir/");
+        for (POI poi : pois) {
+            stringBuilder.append(poi.latitude + "," + poi.longitude + "/");
+        }
+        return stringBuilder.toString();
+    }
 
     @Override
     public String toString() {
@@ -42,6 +59,8 @@ public class Route implements Parcelable {
         dest.writeValue(this.id);
         dest.writeString(this.name);
         dest.writeString(this.description);
+        dest.writeString(this.routeImage);
+        dest.writeSerializable(this.pois);
         dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
         dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
     }
@@ -53,6 +72,8 @@ public class Route implements Parcelable {
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.name = in.readString();
         this.description = in.readString();
+        this.routeImage = in.readString();
+        this.pois = (ArrayList<POI>) in.readSerializable();
         long tmpCreatedAt = in.readLong();
         this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
         long tmpUpdatedAt = in.readLong();

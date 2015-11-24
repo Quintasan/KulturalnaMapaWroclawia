@@ -8,4 +8,15 @@
     <string name="nav_trails">Ścieżki</string>
     <string name="navigation_drawer_close">Zamknij menu nawigacyjne</string>
     <string name="navigation_drawer_open">Otwórz menu nawigacyjne</string>
+    <string name="title_activity_event_details">Szczegóły wydarzenia</string>
+    <string name="title_activity_poi_details">Szczegóły miejsca</string>
+    <string name="title_activity_route_details">Szczegóły scieżki</string>
+    <string name="activity_event_details_additional_information">Dodatkowe informacje</string>
+    <string name="activity_poi_details_additional_information">Dodatkowe informacje</string>
+    <string name="activity_event_details_date">Data</string>
+    <string name="activity_event_details_description">Opis</string>
+    <string name="activity_poi_details_description">Opis</string>
+    <string name="activity_poi_details_opening_hours">Godziny otwarcia</string>
+    <string name="activity_event_details_ends">Koniec</string>
+    <string name="activity_event_details_starts">Początek</string>
 </resources>

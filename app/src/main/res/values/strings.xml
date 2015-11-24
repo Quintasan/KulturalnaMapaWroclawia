@@ -9,4 +9,18 @@
     <string name="nav_trails">Trails</string>
     <string name="nav_events">Events</string>
     <string name="nav_places">Places</string>
+    <string name="title_activity_poi_details">POI details</string>
+    <string name="title_activity_event_details">Event details</string>
+    <string name="title_activity_route_details">Route details</string>
+    <string name="activity_poi_details_description">Description</string>
+    <string name="activity_poi_details_opening_hours">Opening hours</string>
+    <string name="activity_poi_details_additional_information">Additional information</string>
+    <string name="activity_event_details_description">Description</string>
+    <string name="activity_event_details_date">Date</string>
+    <string name="activity_event_details_additional_information">Additional information</string>
+    <string name="activity_event_details_starts">Starts</string>
+    <string name="activity_event_details_ends">Ends</string>
+    <string name="activity_route_details_description">Description</string>
+    <string name="activity_route_details_points">Points</string>
+    <string name="activity_route_details_information">Information</string>
 </resources>

@@ -96,7 +96,7 @@ public class POIFragment extends Fragment implements AbsListView.OnItemClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (_poiFragmentListener != null) {
-            POI selectedPOI = (POI) parent.getSelectedItem();
+            POI selectedPOI = (POI) parent.getItemAtPosition(position);
             _poiFragmentListener.onPOISelected(selectedPOI);
         }
     }

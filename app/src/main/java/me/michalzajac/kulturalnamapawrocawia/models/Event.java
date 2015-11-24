@@ -6,9 +6,10 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Event implements Parcelable {
+public class Event implements Parcelable, Serializable {
 
     @SerializedName("id")
     private Integer id;
@@ -26,13 +27,10 @@ public class Event implements Parcelable {
     public Date ends;
     @SerializedName("price")
     @Expose
-    public Integer price;
-    @SerializedName("public")
+    public String price;
+    @SerializedName("event_image")
     @Expose
-    public Boolean _public;
-    @SerializedName("poi_id")
-    @Expose
-    public Integer poiId;
+    public String eventImage;
     @SerializedName("created_at")
     @Expose
     public Date createdAt;
@@ -57,9 +55,8 @@ public class Event implements Parcelable {
         dest.writeString(this.description);
         dest.writeLong(starts != null ? starts.getTime() : -1);
         dest.writeLong(ends != null ? ends.getTime() : -1);
-        dest.writeValue(this.price);
-        dest.writeValue(this._public);
-        dest.writeValue(this.poiId);
+        dest.writeString(this.price);
+        dest.writeString(this.eventImage);
         dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
         dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
     }
@@ -75,9 +72,8 @@ public class Event implements Parcelable {
         this.starts = tmpStarts == -1 ? null : new Date(tmpStarts);
         long tmpEnds = in.readLong();
         this.ends = tmpEnds == -1 ? null : new Date(tmpEnds);
-        this.price = (Integer) in.readValue(Integer.class.getClassLoader());
-        this._public = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.poiId = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.price = in.readString();
+        this.eventImage = in.readString();
         long tmpCreatedAt = in.readLong();
         this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
         long tmpUpdatedAt = in.readLong();
