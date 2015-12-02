@@ -26,4 +26,5 @@
     <string name="fragment_wroclaw_description_header">Krótko o Wrocławiu</string>
     <string name="wroclaw">Wrocław</string>
     <string name="nav_about">O Wrocławiu</string>
+    <string name="poi_card_details">Szczegóły</string>
 </resources>

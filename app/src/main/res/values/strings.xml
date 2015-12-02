@@ -27,4 +27,5 @@
     <string name="fragment_wroclaw_description_header">Description</string>
     <string name="fragment_wroclaw_description">Insert description here</string>
     <string name="nav_about">About Wroclaw</string>
+    <string name="poi_card_details">Details</string>
 </resources>
