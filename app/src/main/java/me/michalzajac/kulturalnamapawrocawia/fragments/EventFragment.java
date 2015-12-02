@@ -1,10 +1,12 @@
 package me.michalzajac.kulturalnamapawrocawia.fragments;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ObservableArrayList;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import me.michalzajac.kulturalnamapawrocawia.R;
+import me.michalzajac.kulturalnamapawrocawia.adapters.EventAdapter;
 import me.michalzajac.kulturalnamapawrocawia.api.API;
+import me.michalzajac.kulturalnamapawrocawia.databinding.EventFragmentBinding;
 import me.michalzajac.kulturalnamapawrocawia.models.Event;
 import retrofit.Call;
 import retrofit.Callback;
@@ -28,6 +33,10 @@ import retrofit.Retrofit;
 public class EventFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     private final static String TAG = EventFragment.class.getSimpleName();
+
+    @Bind(R.id.recycler_view) RecyclerView recyclerView;
+    private EventFragmentBinding eventFragmentBinding;
+    private ObservableArrayList<Event> events;
 
     private OnFragmentInteractionListener _eventFragmentListener;
     private ArrayAdapter<Event> _eventArrayAdapter;
@@ -51,22 +60,23 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_event, container, false);
-        return view;
+        eventFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.event_fragment, container, false);
+        return eventFragmentBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        _eventArrayAdapter = new ArrayAdapter<Event>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, new ArrayList<Event>());
-        _eventListView = (AbsListView) view.findViewById(android.R.id.list);
-        _eventListView.setAdapter(_eventArrayAdapter);
+        ButterKnife.bind(this, view);
+        events = new ObservableArrayList<>();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Call<List<Event>> query = _api.getAllEvents();
         query.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Response<List<Event>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
-                    _eventArrayAdapter.addAll(response.body());
-                    _eventArrayAdapter.notifyDataSetChanged();
+                    events.addAll(response.body());
+                    EventAdapter eventAdapter = new EventAdapter(events);
+                    recyclerView.setAdapter(eventAdapter);
                 }
             }
 
@@ -75,7 +85,7 @@ public class EventFragment extends Fragment implements AbsListView.OnItemClickLi
                 t.printStackTrace();
             }
         });
-        _eventListView.setOnItemClickListener(this);
+        eventFragmentBinding.setEvents(events);
     }
 
     @Override
