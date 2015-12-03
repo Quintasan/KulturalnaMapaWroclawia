@@ -1,6 +1,5 @@
 package me.michalzajac.kulturalnamapawrocawia.fragments;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.os.Bundle;
@@ -10,10 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -29,18 +24,13 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class POIFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class POIFragment extends Fragment {
 
     private final static String TAG = POIFragment.class.getSimpleName();
 
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
-
     private PoiFragmentBinding poiFragmentBinding;
     private ObservableArrayList<POI> pois;
-
-    private OnFragmentInteractionListener _poiFragmentListener;
-    private ArrayAdapter<POI> _poiArrayAdapter;
-    private AbsListView _poiListView;
     private API.APIInterface _api;
 
     public POIFragment() {
@@ -68,9 +58,7 @@ public class POIFragment extends Fragment implements AbsListView.OnItemClickList
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
         pois = new ObservableArrayList<>();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Call<List<POI>> query = _api.getAllPOIs();
         query.enqueue(new Callback<List<POI>>() {
             @Override
@@ -88,58 +76,6 @@ public class POIFragment extends Fragment implements AbsListView.OnItemClickList
             }
         });
         poiFragmentBinding.setPois(pois);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            _poiFragmentListener = (OnFragmentInteractionListener) getActivity();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        _poiFragmentListener = null;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (_poiFragmentListener != null) {
-            POI selectedPOI = (POI) parent.getItemAtPosition(position);
-            _poiFragmentListener.onPOISelected(selectedPOI);
-        }
-    }
-
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
-    public void setEmptyText(CharSequence emptyText) {
-        View emptyView = _poiListView.getEmptyView();
-
-        if (emptyView instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        public void onPOISelected(POI selectedPOI);
     }
 
 }

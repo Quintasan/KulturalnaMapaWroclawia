@@ -14,14 +14,14 @@ import java.util.List;
 
 import me.michalzajac.kulturalnamapawrocawia.BR;
 import me.michalzajac.kulturalnamapawrocawia.R;
-import me.michalzajac.kulturalnamapawrocawia.activities.POIDetailsActvity;
-import me.michalzajac.kulturalnamapawrocawia.models.POI;
+import me.michalzajac.kulturalnamapawrocawia.activities.RouteDetailsActvity;
+import me.michalzajac.kulturalnamapawrocawia.models.Route;
 
-public class POIAdapter extends RecyclerView.Adapter<POIAdapter.BindingHolder> {
-    private List<POI> pois;
+public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.BindingHolder> {
+    private List<Route> routes;
 
-    public POIAdapter(List<POI> pois) {
-        this.pois = pois;
+    public RouteAdapter(List<Route> routes) {
+        this.routes = routes;
     }
 
     public static class BindingHolder extends RecyclerView.ViewHolder {
@@ -32,29 +32,27 @@ public class POIAdapter extends RecyclerView.Adapter<POIAdapter.BindingHolder> {
             binding = DataBindingUtil.bind(view);
         }
 
-        public ViewDataBinding getBinding() {
-            return binding;
-        }
+        public ViewDataBinding getBinding() { return binding; }
     }
 
     @Override
     public BindingHolder onCreateViewHolder(ViewGroup parent, int type) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.poi_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.route_card, parent, false);
         BindingHolder bindingHolder = new BindingHolder(view);
         return bindingHolder;
     }
 
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
-        final POI poi = pois.get(position);
-        holder.getBinding().setVariable(BR.poi, poi);
+        final Route route = routes.get(position);
+        holder.getBinding().setVariable(BR.route, route);
         holder.getBinding().executePendingBindings();
         holder.getBinding().getRoot().findViewById(R.id.action_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, POIDetailsActvity.class);
-                intent.putExtra("selectedPOI", (Parcelable) poi);
+                Intent intent = new Intent(context, RouteDetailsActvity.class);
+                intent.putExtra("selectedRoute", (Parcelable) route);
                 context.startActivity(intent);
             }
         });
@@ -62,6 +60,6 @@ public class POIAdapter extends RecyclerView.Adapter<POIAdapter.BindingHolder> {
 
     @Override
     public int getItemCount() {
-        return pois.size();
+        return routes.size();
     }
 }

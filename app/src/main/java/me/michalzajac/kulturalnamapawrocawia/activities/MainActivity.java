@@ -2,7 +2,6 @@ package me.michalzajac.kulturalnamapawrocawia.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -10,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,15 +18,9 @@ import me.michalzajac.kulturalnamapawrocawia.R;
 import me.michalzajac.kulturalnamapawrocawia.fragments.EventFragment;
 import me.michalzajac.kulturalnamapawrocawia.fragments.POIFragment;
 import me.michalzajac.kulturalnamapawrocawia.fragments.RouteFragment;
-import me.michalzajac.kulturalnamapawrocawia.models.Event;
-import me.michalzajac.kulturalnamapawrocawia.models.POI;
-import me.michalzajac.kulturalnamapawrocawia.models.Route;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        EventFragment.OnFragmentInteractionListener,
-        POIFragment.OnFragmentInteractionListener,
-        RouteFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private final static String TAG = MainActivity.class.getSimpleName();
 
@@ -119,26 +111,5 @@ public class MainActivity extends AppCompatActivity
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onPOISelected(POI selectedPOI) {
-        Intent intent = new Intent(this, POIDetailsActvity.class);
-        intent.putExtra("selectedPOI", (Parcelable) selectedPOI);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onEventSelected(Event selectedEvent) {
-        Intent intent = new Intent(this, EventDetailsActvity.class);
-        intent.putExtra("selectedEvent", (Parcelable) selectedEvent);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onTrailSelected(Route selectedRoute) {
-        Intent intent = new Intent(this, RouteDetailsActvity.class);
-        intent.putExtra("selectedRoute", (Parcelable) selectedRoute);
-        startActivity(intent);
     }
 }
