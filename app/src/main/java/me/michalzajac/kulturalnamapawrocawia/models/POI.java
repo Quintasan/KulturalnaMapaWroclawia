@@ -29,6 +29,12 @@ public class POI implements Parcelable, Serializable {
     @SerializedName("opening_hours")
     @Expose
     public String openingHours;
+    @SerializedName("url")
+    @Expose
+    public String url;
+    @SerializedName("phone")
+    @Expose
+    public String phone;
     @SerializedName("poi_image")
     @Expose
     public String poiImage;
@@ -57,6 +63,9 @@ public class POI implements Parcelable, Serializable {
         dest.writeFloat(this.latitude);
         dest.writeFloat(this.longitude);
         dest.writeString(this.openingHours);
+        dest.writeString(this.url);
+        dest.writeString(this.phone);
+
         dest.writeString(this.poiImage);
     }
 
@@ -80,6 +89,9 @@ public class POI implements Parcelable, Serializable {
         this.latitude = source.readFloat();
         this.longitude = source.readFloat();
         this.openingHours = source.readString();
+        this.url = source.readString();
+        this.phone = source.readString();
+
         this.poiImage = source.readString();
     }
 }
