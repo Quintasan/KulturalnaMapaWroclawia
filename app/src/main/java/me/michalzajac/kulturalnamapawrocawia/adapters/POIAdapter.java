@@ -24,6 +24,16 @@ public class POIAdapter extends RecyclerView.Adapter<POIAdapter.BindingHolder> {
         this.pois = pois;
     }
 
+    public void clear() {
+        pois.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<POI> pois) {
+        this.pois.addAll(pois);
+        notifyDataSetChanged();
+    }
+
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;
 

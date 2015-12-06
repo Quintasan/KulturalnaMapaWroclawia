@@ -35,11 +35,11 @@ public class POIDetailsActvity extends AppCompatActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         collapsingToolbarLayout.setTitle(selectedPOI.toString());
-        Glide.with(this).load(selectedPOI.poiImage).centerCrop().into(backdrop);
+        Glide.with(this).load(selectedPOI.getPoiImage()).centerCrop().into(backdrop);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + selectedPOI.latitude + "," + selectedPOI.longitude);
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + selectedPOI.getLatitude() + "," + selectedPOI.getLongitude());
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {

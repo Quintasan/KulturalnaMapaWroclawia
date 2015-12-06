@@ -39,7 +39,7 @@ public class RouteDetailsActvity extends AppCompatActivity {
         activityRouteDetailsBinding.setRoute(selectedRoute);
 
         collapsingToolbarLayout.setTitle(selectedRoute.toString());
-        Glide.with(this).load(selectedRoute.routeImage).centerCrop().into(backdrop);
+        Glide.with(this).load(selectedRoute.getRouteImage()).centerCrop().into(backdrop);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

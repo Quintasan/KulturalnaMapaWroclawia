@@ -15,32 +15,41 @@ public class Event implements Parcelable, Serializable {
     private Integer id;
     @SerializedName("name")
     @Expose
-    public String name;
+    private String name;
     @SerializedName("description")
     @Expose
-    public String description;
+    private String description;
     @SerializedName("starts")
     @Expose
-    public Date starts;
+    private Date starts;
     @SerializedName("ends")
     @Expose
-    public Date ends;
+    private Date ends;
     @SerializedName("price")
     @Expose
-    public String price;
+    private String price;
     @SerializedName("event_image")
     @Expose
-    public String eventImage;
+    private String eventImage;
+    @SerializedName("latitude")
+    @Expose
+    private Float latitude;
+    @SerializedName("longitude")
+    @Expose
+    private Float longitude;
+    @SerializedName("url")
+    @Expose
+    private String url;
     @SerializedName("created_at")
     @Expose
-    public Date createdAt;
+    private Date createdAt;
     @SerializedName("updated_at")
     @Expose
-    public Date updatedAt;
+    private Date updatedAt;
 
     @Override
     public String toString() {
-        return name;
+        return getName();
     }
 
     @Override
@@ -50,34 +59,40 @@ public class Event implements Parcelable, Serializable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(this.id);
-        dest.writeString(this.name);
-        dest.writeString(this.description);
-        dest.writeLong(starts != null ? starts.getTime() : -1);
-        dest.writeLong(ends != null ? ends.getTime() : -1);
-        dest.writeString(this.price);
-        dest.writeString(this.eventImage);
-        dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
-        dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
+        dest.writeValue(this.getId());
+        dest.writeString(this.getName());
+        dest.writeString(this.getDescription());
+        dest.writeLong(getStarts() != null ? getStarts().getTime() : -1);
+        dest.writeLong(getEnds() != null ? getEnds().getTime() : -1);
+        dest.writeString(this.getPrice());
+        dest.writeString(this.getEventImage());
+        dest.writeValue(this.getLatitude());
+        dest.writeValue(this.getLongitude());
+        dest.writeString(this.getUrl());
+        dest.writeLong(getCreatedAt() != null ? getCreatedAt().getTime() : -1);
+        dest.writeLong(getUpdatedAt() != null ? getUpdatedAt().getTime() : -1);
     }
 
     public Event() {
     }
 
     protected Event(Parcel in) {
-        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.name = in.readString();
-        this.description = in.readString();
+        this.setId((Integer) in.readValue(Integer.class.getClassLoader()));
+        this.setName(in.readString());
+        this.setDescription(in.readString());
         long tmpStarts = in.readLong();
-        this.starts = tmpStarts == -1 ? null : new Date(tmpStarts);
+        this.setStarts(tmpStarts == -1 ? null : new Date(tmpStarts));
         long tmpEnds = in.readLong();
-        this.ends = tmpEnds == -1 ? null : new Date(tmpEnds);
-        this.price = in.readString();
-        this.eventImage = in.readString();
+        this.setEnds(tmpEnds == -1 ? null : new Date(tmpEnds));
+        this.setPrice(in.readString());
+        this.setEventImage(in.readString());
+        this.setLatitude((Float) in.readValue(Float.class.getClassLoader()));
+        this.setLongitude((Float) in.readValue(Float.class.getClassLoader()));
+        this.setUrl(in.readString());
         long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        this.setCreatedAt(tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt));
         long tmpUpdatedAt = in.readLong();
-        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+        this.setUpdatedAt(tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt));
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -89,4 +104,100 @@ public class Event implements Parcelable, Serializable {
             return new Event[size];
         }
     };
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getStarts() {
+        return starts;
+    }
+
+    public void setStarts(Date starts) {
+        this.starts = starts;
+    }
+
+    public Date getEnds() {
+        return ends;
+    }
+
+    public void setEnds(Date ends) {
+        this.ends = ends;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public void setEventImage(String eventImage) {
+        this.eventImage = eventImage;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

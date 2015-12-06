@@ -82,7 +82,7 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView> <!-- description -->
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -111,7 +111,7 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView> <!-- opening hours -->
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -140,7 +140,7 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView> <!-- additional information -->
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
@@ -174,7 +174,7 @@
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView> <!-- contact -->
 
             </LinearLayout>
 

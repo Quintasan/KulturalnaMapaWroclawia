@@ -28,4 +28,5 @@
     <string name="nav_about">O Wrocławiu</string>
     <string name="poi_card_details">Szczegóły</string>
     <string name="activity_poi_details_contact">Kontakt</string>
+    <string name="connection_error">Nie udało się pobrać danych. Spróbuj ponownie za chwilę.</string>
 </resources>
