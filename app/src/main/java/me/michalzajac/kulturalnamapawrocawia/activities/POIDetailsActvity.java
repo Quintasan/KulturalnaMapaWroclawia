@@ -34,6 +34,7 @@ public class POIDetailsActvity extends AppCompatActivity {
         activityPoiDetailsBinding.setPoi(selectedPOI);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         collapsingToolbarLayout.setTitle(selectedPOI.toString());
         Glide.with(this).load(selectedPOI.getPoiImage()).centerCrop().into(backdrop);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

@@ -24,6 +24,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.BindingHolde
         this.events = events;
     }
 
+    public void clear() {
+        events.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Event> events) {
+        this.events.addAll(events);
+        notifyDataSetChanged();
+    }
+
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;
 

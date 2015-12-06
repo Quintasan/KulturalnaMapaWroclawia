@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,9 +31,11 @@ public class EventFragment extends Fragment {
 
     private final static String TAG = EventFragment.class.getSimpleName();
 
+    @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     private EventFragmentBinding eventFragmentBinding;
     private ObservableArrayList<Event> events;
+    private EventAdapter eventAdapter;
     private API.APIInterface _api;
 
     public EventFragment() {
@@ -60,6 +63,7 @@ public class EventFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
         events = new ObservableArrayList<>();
+        eventAdapter = new EventAdapter(events);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Call<List<Event>> query = _api.getAllEvents();
         query.enqueue(new Callback<List<Event>>() {
@@ -67,8 +71,8 @@ public class EventFragment extends Fragment {
             public void onResponse(Response<List<Event>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     events.addAll(response.body());
-                    EventAdapter eventAdapter = new EventAdapter(events);
-                    recyclerView.setAdapter(eventAdapter);
+                    eventAdapter.addAll(events);
+                    eventAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -77,7 +81,30 @@ public class EventFragment extends Fragment {
                 Log.d(TAG, "Exception was thrown, please report this to developer", t);
             }
         });
+        recyclerView.setAdapter(eventAdapter);
         eventFragmentBinding.setEvents(events);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<Event>> query = _api.getAllEvents();
+                query.enqueue(new Callback<List<Event>>() {
+                    @Override
+                    public void onResponse(Response<List<Event>> response, Retrofit retrofit) {
+                        if (response.isSuccess()) {
+                            events = new ObservableArrayList<>();
+                            events.addAll(response.body());
+                            eventAdapter.notifyDataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.d(TAG, "Something went wrong lol");
+                    }
+                });
+            }
+        });
     }
 
 }

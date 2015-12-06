@@ -24,6 +24,16 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.BindingHolde
         this.routes = routes;
     }
 
+    public void clear() {
+        this.routes.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Route> routes) {
+        this.routes.addAll(routes);
+        notifyDataSetChanged();
+    }
+
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;
 

@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,9 +31,11 @@ public class RouteFragment extends Fragment {
 
     private final static String TAG = RouteFragment.class.getSimpleName();
 
+    @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     private RouteFragmentBinding routeFragmentBinding;
     private ObservableArrayList<Route> routes;
+    private RouteAdapter routeAdapter;
     private API.APIInterface _api;
 
     public RouteFragment() {
@@ -60,6 +63,7 @@ public class RouteFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
         routes = new ObservableArrayList<>();
+        routeAdapter = new RouteAdapter(routes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Call<List<Route>> query = _api.getAllRoutes();
         query.enqueue(new Callback<List<Route>>() {
@@ -67,8 +71,8 @@ public class RouteFragment extends Fragment {
             public void onResponse(Response<List<Route>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     routes.addAll(response.body());
-                    RouteAdapter routeAdapter = new RouteAdapter(routes);
-                    recyclerView.setAdapter(routeAdapter);
+                    routeAdapter.addAll(routes);
+                    routeAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -77,6 +81,7 @@ public class RouteFragment extends Fragment {
                 Log.d(TAG, "Exception was thrown, please report this to developer", t);
             }
         });
+        recyclerView.setAdapter(routeAdapter);
         routeFragmentBinding.setRoutes(routes);
     }
 

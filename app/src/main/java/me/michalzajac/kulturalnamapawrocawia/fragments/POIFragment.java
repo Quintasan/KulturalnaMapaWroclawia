@@ -63,6 +63,7 @@ public class POIFragment extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
         pois = new ObservableArrayList<>();
+        poiAdapter = new POIAdapter(pois);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         Call<List<POI>> query = _api.getAllPOIs();
         query.enqueue(new Callback<List<POI>>() {
@@ -70,8 +71,7 @@ public class POIFragment extends Fragment {
             public void onResponse(Response<List<POI>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     pois.addAll(response.body());
-                    poiAdapter = new POIAdapter(pois);
-                    recyclerView.setAdapter(poiAdapter);
+                    poiAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -81,6 +81,30 @@ public class POIFragment extends Fragment {
                 Snackbar.make(view, R.string.connection_error, Snackbar.LENGTH_INDEFINITE).show();
             }
         });
+        recyclerView.setAdapter(poiAdapter);
         poiFragmentBinding.setPois(pois);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<List<POI>> query = _api.getAllPOIs();
+                query.enqueue(new Callback<List<POI>>() {
+                    @Override
+                    public void onResponse(Response<List<POI>> response, Retrofit retrofit) {
+                        if (response.isSuccess()) {
+                            pois = new ObservableArrayList<POI>();
+                            pois.addAll(response.body());
+                            poiAdapter.notifyDataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.d(TAG, "Could not download data, ", t);
+                        Snackbar.make(view, R.string.connection_error, Snackbar.LENGTH_INDEFINITE).show();
+                    }
+                });
+            }
+        });
     }
 }
