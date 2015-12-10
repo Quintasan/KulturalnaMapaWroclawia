@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +76,6 @@ public class POIFragment extends Fragment {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d(TAG, "Could not download data, ", t);
                 Snackbar.make(view, R.string.connection_error, Snackbar.LENGTH_INDEFINITE).show();
             }
         });
@@ -100,7 +98,6 @@ public class POIFragment extends Fragment {
 
                     @Override
                     public void onFailure(Throwable t) {
-                        Log.d(TAG, "Could not download data, ", t);
                         Snackbar.make(view, R.string.connection_error, Snackbar.LENGTH_INDEFINITE).show();
                     }
                 });

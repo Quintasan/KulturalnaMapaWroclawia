@@ -3,11 +3,11 @@ package me.michalzajac.kulturalnamapawrocawia.fragments;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +60,7 @@ public class EventFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
         events = new ObservableArrayList<>();
         eventAdapter = new EventAdapter(events);
@@ -78,7 +78,7 @@ public class EventFragment extends Fragment {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d(TAG, "Exception was thrown, please report this to developer", t);
+                Snackbar.make(view, R.string.connection_error, Snackbar.LENGTH_INDEFINITE).show();
             }
         });
         recyclerView.setAdapter(eventAdapter);
@@ -100,7 +100,7 @@ public class EventFragment extends Fragment {
 
                     @Override
                     public void onFailure(Throwable t) {
-                        Log.d(TAG, "Something went wrong lol");
+                        Snackbar.make(view, R.string.connection_error, Snackbar.LENGTH_INDEFINITE).show();
                     }
                 });
             }

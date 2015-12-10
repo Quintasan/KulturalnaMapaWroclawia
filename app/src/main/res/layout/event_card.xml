@@ -35,8 +35,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/card_title_height"
                 android:layout_alignBottom="@+id/card_image"
-                android:layout_marginLeft="@dimen/md_keylines"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/md_keylines"
                 android:text="@{event.name}"
+                android:textColor="@color/white"
+                android:background="#55000000"
+
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
