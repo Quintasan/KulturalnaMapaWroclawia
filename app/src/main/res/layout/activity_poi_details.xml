@@ -61,7 +61,8 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/card_margin">
+                    android:layout_margin="@dimen/card_margin"
+                    android:visibility="@{poi.description.isEmpty ? View.GONE : View.VISIBLE}">
 
                     <LinearLayout
                         style="@style/Widget.CardContent"
@@ -89,7 +90,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
-                    android:layout_marginRight="@dimen/card_margin">
+                    android:layout_marginRight="@dimen/card_margin"
+                    android:visibility="@{poi.openingHours.isEmpty ? View.GONE : View.VISIBLE}">
 
                     <LinearLayout
                         style="@style/Widget.CardContent"
@@ -147,7 +149,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/card_margin"
                     android:layout_marginLeft="@dimen/card_margin"
-                    android:layout_marginRight="@dimen/card_margin">
+                    android:layout_marginRight="@dimen/card_margin"
+                    android:visibility="@{poi.phone.isEmpty &amp;&amp; poi.url.isEmpty ? View.GONE : View.VISIBLE}">
 
                     <LinearLayout
                         style="@style/Widget.CardContent"
@@ -164,13 +167,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:autoLink="phone"
-                            android:text="@{poi.phone}" />
+                            android:text="@{poi.phone}"
+                            android:visibility="@{poi.phone.isEmpty ? View.GONE : View.VISIBLE}"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:autoLink="web"
-                            android:text="@{poi.url}" />
+                            android:text="@{poi.url}"
+                            android:visibility="@{poi.url.isEmpty ? View.GONE : View.VISIBLE}"/>
 
                     </LinearLayout>
 

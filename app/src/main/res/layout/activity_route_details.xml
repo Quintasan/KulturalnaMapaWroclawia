@@ -107,7 +107,12 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/activity_route_details_information"/>
+                            android:id="@+id/activity_route_details_distance"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/activity_route_details_duration"/>
 
                     </LinearLayout>
 

@@ -29,4 +29,6 @@
     <string name="poi_card_details">Szczegóły</string>
     <string name="activity_poi_details_contact">Kontakt</string>
     <string name="connection_error">Nie udało się pobrać danych. Spróbuj ponownie za chwilę.</string>
+    <string name="distance">Długość trasy: %1$5.2f km</string>
+    <string name="duration">Szacowany czas: %1$2.1f h</string>
 </resources>

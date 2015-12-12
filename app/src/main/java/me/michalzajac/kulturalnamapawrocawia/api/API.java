@@ -11,12 +11,16 @@ import java.io.IOException;
 import java.util.List;
 
 import me.michalzajac.kulturalnamapawrocawia.models.Event;
+import me.michalzajac.kulturalnamapawrocawia.models.OptimizedRouteData;
 import me.michalzajac.kulturalnamapawrocawia.models.POI;
 import me.michalzajac.kulturalnamapawrocawia.models.Route;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.POST;
 import retrofit.http.Path;
 
 public class API {
@@ -73,6 +77,10 @@ public class API {
 
         @GET("/routes/{route_id}")
         Call<Route> getRoute(@Path("route_id") Integer route_id);
+
+        @FormUrlEncoded
+        @POST("/routes/{route_id}/optimize")
+        Call<OptimizedRouteData> optimize(@Path("route_id") Integer route_id, @Field("latitude") double latitude, @Field("longitude") double longitude);
     }
 
 }

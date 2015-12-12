@@ -21,6 +21,8 @@ import me.michalzajac.kulturalnamapawrocawia.models.POI;
 
 public class POIDetailsActvity extends AppCompatActivity {
 
+    private final static String TAG = POIDetailsActvity.class.getSimpleName();
+
     @Bind(R.id.backdrop) ImageView backdrop;
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.activity_poi_details_navigate) FloatingActionButton floatingActionButton;
