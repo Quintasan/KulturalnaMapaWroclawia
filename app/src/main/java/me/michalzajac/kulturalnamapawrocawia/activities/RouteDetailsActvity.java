@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import com.google.android.gms.location.LocationServices;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.michalzajac.kulturalnamapawrocawia.R;
+import me.michalzajac.kulturalnamapawrocawia.adapters.POIAdapter;
 import me.michalzajac.kulturalnamapawrocawia.api.API;
 import me.michalzajac.kulturalnamapawrocawia.databinding.ActivityRouteDetailsBinding;
 import me.michalzajac.kulturalnamapawrocawia.models.OptimizedRouteData;
@@ -44,12 +47,15 @@ public class RouteDetailsActvity extends AppCompatActivity
     private String navigationString;
     private API.APIInterface _api;
     private Route selectedRoute;
+    private POIAdapter poiAdapter;
 
     @Bind(R.id.backdrop) ImageView backdrop;
     @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.activity_route_details_navigate) FloatingActionButton floatingActionButton;
     @Bind(R.id.activity_route_details_distance) TextView distance;
     @Bind(R.id.activity_route_details_duration) TextView duration;
+
+    @Bind(R.id.recycler_view) RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +77,9 @@ public class RouteDetailsActvity extends AppCompatActivity
         Intent intent = getIntent();
         selectedRoute = intent.getParcelableExtra("selectedRoute");
         activityRouteDetailsBinding.setRoute(selectedRoute);
-
+        poiAdapter = new POIAdapter(selectedRoute.getPois());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(poiAdapter);
         collapsingToolbarLayout.setTitle(selectedRoute.toString());
         Glide.with(this).load(selectedRoute.getRouteImage()).centerCrop().into(backdrop);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

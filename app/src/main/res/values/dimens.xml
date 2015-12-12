@@ -11,6 +11,7 @@
     <dimen name="card_margin">16dp</dimen>
     <dimen name="list_item_avatar_size">40dp</dimen>
     <dimen name="card_height">304dp</dimen>
+    <dimen name="card_height_magic">350dp</dimen>
     <dimen name="md_keylines">16dp</dimen>
     <dimen name="tile_padding">8dp</dimen>
     <dimen name="tile_height">160dp</dimen>
