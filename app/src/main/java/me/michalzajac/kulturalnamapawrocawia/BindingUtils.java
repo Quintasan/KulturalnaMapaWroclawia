@@ -17,6 +17,12 @@ public class BindingUtils {
         textView.setText(dateFormat.format(date));
     }
 
+    @BindingAdapter({"bind:price"})
+    public static void setPrice(TextView textView, String price) {
+        String str = textView.getContext().getResources().getString(R.string.price);
+        textView.setText(String.format(str, price));
+    }
+
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView imageView, String imageUrl) {
         Glide.with(imageView.getContext())

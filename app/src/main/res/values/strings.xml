@@ -31,6 +31,7 @@
     <string name="activity_poi_details_contact">Contact</string>
     <string name="distance">Distance: %1$5.2f km</string>
     <string name="duration">Duration: %1$2.1f h</string>
+    <string name="price">Price: %1$s</string>
 
     <string name="connection_error">Could not connect to server. Please try again later.</string>
 </resources>
