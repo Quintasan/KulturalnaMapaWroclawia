@@ -71,7 +71,6 @@ public class EventFragment extends Fragment {
             public void onResponse(Response<List<Event>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     events.addAll(response.body());
-                    eventAdapter.addAll(events);
                     eventAdapter.notifyDataSetChanged();
                 }
             }
