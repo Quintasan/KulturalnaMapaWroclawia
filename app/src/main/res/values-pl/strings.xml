@@ -32,4 +32,8 @@
     <string name="distance">Długość trasy: %1$5.2f km</string>
     <string name="duration">Szacowany czas: %1$2.1f h</string>
     <string name="price">Cena: %1$s</string>
+    <string name="list_events">Wydarzenia</string>
+    <string name="list_places">Miejsca</string>
+    <string name="list_routes">Ścieżki</string>
+    <string name="about_wroclaw">O Wrocławiu</string>
 </resources>

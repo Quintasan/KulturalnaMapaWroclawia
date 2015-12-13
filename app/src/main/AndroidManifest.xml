@@ -27,7 +27,7 @@
         <activity android:name=".activities.MapsActivity" />
         <activity
             android:name=".activities.WroclawActivity"
-            android:label="@string/wroclaw"
+            android:label="@string/about_wroclaw"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
